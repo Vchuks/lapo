@@ -59,9 +59,9 @@ const options = {
 
 const CardDist = () => {
   return (
-    <div className="w-full h-[19rem] flex justify-center  bg-white border relative border-[#E2E2E2] my-4 rounded-[12px] py-3 px-5">
+    <div className="w-full h-[19rem]   bg-white border relative border-[#E2E2E2] my-4 rounded-[12px] py-3 px-5">
       <Doughnut data={data} options={options} />
-      <div className='text-center absolute left-[44%] top-[45%]'>
+      <div className='text-center absolute left-[40%] md:left-[45%] lg:left-[40%] xl:left-[42%] top-[40%] xl:top-[45%]'>
         <p className=' text-[12px]'>Total Cards</p>
         <p className='text-[#121212] text-2xl font-[satoshiMedium]'>2,450</p>
       </div>

@@ -115,8 +115,12 @@ const sideMenu = [
 
 export const MyMenu = ({ children }) => {
   const [menu, setMenu] = useState(sideMenu);
+  const [openNav, setOpenNav] = useState(false)
+  const handleMenu = () => {
+    setOpenNav(!openNav)
+  }
   return (
-    <MenuContext.Provider value={{ menu, setMenu }}>
+    <MenuContext.Provider value={{ menu, setMenu, openNav, setOpenNav, handleMenu }}>
       {children}
     </MenuContext.Provider>
   );

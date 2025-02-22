@@ -55,11 +55,12 @@ const DashboardCardRequest = () => {
   };
 
   return (
-    <div className="w-full bg-white rounded-[12px] border border-[#E2E2E2] py-3 px-5 my-4 h-fit">
+    <div className="w-full bg-white rounded-[12px] border border-[#E2E2E2] py-3 px-5 my-4 h-fit ">
       <p className="text-[#121212] pb-4 text-lg font-[satoshiMedium]">
         Recent Card Requests
       </p>
-      <table className="table-fixed w-full card">
+      <div className="w-full overflow-x-scroll">
+      <table className="table-fixed  w-full min-w-[30rem]  lg:min-w-0 card">
         <thead>
           <tr className="bg-[#F1F7FF] border-y border-[#E2E2E2] ">
             <th>Branch</th>
@@ -85,6 +86,7 @@ const DashboardCardRequest = () => {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };

@@ -3,12 +3,12 @@ import dash from "../assets/dash.png";
 import dashb from "../assets/dashb.png";
 import cardInfra from "../assets/cardinfra.png";
 import { NavLink, useLocation } from "react-router-dom";
-import { UploadIcon } from "@radix-ui/react-icons";
+import { Cross1Icon, UploadIcon } from "@radix-ui/react-icons";
 import { useContext } from "react";
 import { MenuContext } from "../context/MenuContext";
 
 const Sidebar = () => {
-  const { menu } = useContext(MenuContext);
+  const { menu, openNav, handleMenu } = useContext(MenuContext);
   const navStyles = ({ isActive }) => {
     return {
       backgroundColor: isActive ? "#F6F6F6" : "inherit",
@@ -30,11 +30,16 @@ const Sidebar = () => {
   const location = useLocation();
 
   return (
-    <div className="w-96 p-5 h-full overflow-y-auto bg-white border-r border-r-[#E2E2E2]">
-      <img src={logo} className="w-40" />
+    <div className={`${openNav ? "-left-0 z-20" : '-left-[100%]'} absolute lg:relative lg:-left-0 w-96 p-5 h-full overflow-y-auto bg-white border-r border-r-[#E2E2E2]`}>
+        <div className="flex justify-between items-center"
+        >
+
+      <img src={logo} className="w-28 md:w-40" />
+      <Cross1Icon className="block lg:hidden" onClick={handleMenu}/>
+        </div>
       <div className="flex flex-col justify-between  h-full 2xl:h-[95%]">
         <div>
-          <NavLink className="" to="/" style={navStyles}>
+          <NavLink className="" to="/" onClick={handleMenu} style={navStyles}>
             <div>
               <img src={location.pathname === "/" ? dashb : dash} alt="" />
             </div>
@@ -48,6 +53,7 @@ const Sidebar = () => {
               key={eachMenu.id}
               style={navStyles}
               to={`${eachMenu.link}`}
+              onClick={handleMenu}
             >
               <div>
                 <img

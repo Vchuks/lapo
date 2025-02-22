@@ -8,7 +8,7 @@ const Dashboard = () => {
   return (
     <div className="border border-[#DEDEDF] p-5">
       <Top />
-      <div className="flex gap-2">
+      <div className="flex flex-col lg:flex-row gap-2">
         <div className="w-full">
           <BarChart />
           <LineChart />

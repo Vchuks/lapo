@@ -77,7 +77,7 @@ const Top = () => {
             Last login: 26/11/2024 <span className="pl-1">14:39:58</span>
           </p>
         </div>
-        <div className="flex gap-2 items-center border h-fit border-[#D0D5DD] px-3 py-[6px] text-[11px] text-[#121212] rounded-sm">
+        <div className="flex flex-col md:flex-row gap-2 items-center border h-fit border-[#D0D5DD] px-2 md:px-3 py-[6px] text-[11px] text-[#121212] rounded-sm">
           <div className="border-r h-3 border-[#D0D5DD] pr-2 flex gap-2 items-center">
             {" "}
             <img src={cal} alt="" />
@@ -89,11 +89,11 @@ const Top = () => {
       {/* quick access */}
       <section className="p-4 my-4 bg-white border border-[#E2E2E2] rounded-[10px]">
         <p className="text-[#121212] font-[satoshiMedium]">Your Quick Access</p>
-        <div className="pt-4 flex gap-2">
+        <div className="pt-4 flex flex-wrap justify-between lg:justify-start lg:flex-nowrap gap-2">
           {quickData.map((each) => (
             <div
               key={each.id}
-              className="w-full bg-[#F1F7FF] rounded-sm py-2 px-4 flex items-center gap-3"
+              className="w-full md:w-[47%] lg:w-full bg-[#F1F7FF] rounded-sm py-2 px-4 flex items-center gap-3"
             >
               <div className="h-fit rounded-full p-[6px] flex justify-center items-center  bg-[#014DAF]">
                 <img src={each.pic} alt="" className="" />
@@ -112,8 +112,8 @@ const Top = () => {
           <hr className="w-full border-t border-[#D0D5DD]" />
         </div>
 
-        <div className="flex gap-2 pt-3">
-            {analytics.map(each => <div key={each.id} className="w-full p-[10px] rounded-[10px] border border-[#E2E2E2] bg-white">
+        <div className="flex flex-col md:flex-row md:flex-wrap xl:flex-nowrap md:justify-between xl:justify-start gap-2 pt-3">
+            {analytics.map(each => <div key={each.id} className="w-full md:w-[47%] lg:w-2/5 xl:w-full  p-[10px] rounded-[10px] border border-[#E2E2E2] bg-white">
             <img src={each.pic} alt="" className="" />
             <p className="text-sm font-[satoshiMedium] py-1">{each.title}</p>
             <div className="flex items-center justify-between py-2">
