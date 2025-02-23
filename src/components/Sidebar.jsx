@@ -30,7 +30,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   return (
-    <div className={`${openNav ? "-left-0 z-20" : '-left-[100%]'} absolute lg:relative lg:-left-0 w-96 p-5 h-full overflow-y-auto bg-white border-r border-r-[#E2E2E2]`}>
+    <div className={`${openNav ? "-left-0 z-20" : '-left-[100%]'} absolute lg:relative lg:-left-0 w-full lg:w-96 p-3 lg:p-5 h-full overflow-y-auto bg-white lg:border-r border-r-[#E2E2E2]`}>
         <div className="flex justify-between items-center"
         >
 
@@ -48,7 +48,7 @@ const Sidebar = () => {
           <p className="font-[satoshiMedium] text-xs px-[16px] py-[10px]">
             MAIN MENU
           </p>
-          {menu.map((eachMenu) => (
+          {menu?.map((eachMenu) => (
             <NavLink
               key={eachMenu.id}
               style={navStyles}

@@ -25,6 +25,7 @@ import trailb from "../assets/trailb.png";
 import acc from "../assets/acc.png";
 import accb from "../assets/accb.png";
 import { MenuContext } from "./MenuContext";
+import { CardData } from "./CardContext";
 
 const sideMenu = [
   {
@@ -33,6 +34,7 @@ const sideMenu = [
     icon: branch,
     iconb: branchb,
     link: "branches",
+    child: "",
   },
   {
     id: "2",
@@ -40,6 +42,7 @@ const sideMenu = [
     icon: role,
     iconb: roleb,
     link: "roles",
+    child: "",
   },
   {
     id: "3",
@@ -47,6 +50,7 @@ const sideMenu = [
     icon: user,
     iconb: userb,
     link: "users",
+    child: "",
   },
   {
     id: "4",
@@ -54,6 +58,7 @@ const sideMenu = [
     icon: scheme,
     iconb: schemeb,
     link: "card-scheme",
+    child: "",
   },
   {
     id: "5",
@@ -61,6 +66,10 @@ const sideMenu = [
     icon: prof,
     iconb: profb,
     link: "card-profile",
+    child: {
+      title: "Create Profile",
+      path: "card-profile/create-profile",
+    },
   },
   {
     id: "6",
@@ -68,6 +77,10 @@ const sideMenu = [
     icon: req,
     iconb: reqb,
     link: "card-request",
+    child: {
+      title: "Request Details",
+      path: "card-request/request-details",
+    },
   },
   {
     id: "7",
@@ -75,6 +88,7 @@ const sideMenu = [
     icon: list,
     iconb: listb,
     link: "authorization-list",
+    child: "",
   },
   {
     id: "8",
@@ -82,6 +96,7 @@ const sideMenu = [
     icon: stock,
     iconb: stockb,
     link: "stock",
+    child: "",
   },
   {
     id: "9",
@@ -89,6 +104,7 @@ const sideMenu = [
     icon: card,
     iconb: cardb,
     link: "cards",
+    child: "",
   },
   {
     id: "10",
@@ -96,6 +112,7 @@ const sideMenu = [
     icon: queue,
     iconb: queueb,
     link: "authorization-queue",
+    child: "",
   },
   {
     id: "11",
@@ -103,6 +120,7 @@ const sideMenu = [
     icon: trail,
     iconb: trailb,
     link: "trail",
+    child: "",
   },
   {
     id: "12",
@@ -110,22 +128,103 @@ const sideMenu = [
     icon: acc,
     iconb: accb,
     link: "account",
+    child: "",
+  },
+];
+const cardAll = [
+  {
+    id: "1",
+    card_name: "Verve-1",
+    currency: "NGN",
+    expire: "40 months",
+    bin: "50611234",
+    date: "11/10/2024  23:21:03",
+  },
+  {
+    id: "2",
+    card_name: "Verve-1",
+    currency: "NGN",
+    expire: "40 months",
+    bin: "50611234",
+    date: "11/10/2024  23:21:03",
+  },
+  {
+    id: "3",
+    card_name: "Verve-1",
+    currency: "NGN",
+    expire: "40 months",
+    bin: "50611234",
+    date: "11/10/2024  23:21:03",
+  },
+];
+
+const fee = [
+  {
+    id: "1",
+    name: "",
+    value: "",
+    frequency: "",
+    currency: "",
+    accout_paid: "",
+    account: "",
+    time: "",
   },
 ];
 
 export const MyMenu = ({ children }) => {
   const [menu, setMenu] = useState(sideMenu);
-  const [openNav, setOpenNav] = useState(false)
+  const [openNav, setOpenNav] = useState(false);
   const handleMenu = () => {
-    setOpenNav(!openNav)
-  }
+    setOpenNav(!openNav);
+  };
   return (
-    <MenuContext.Provider value={{ menu, setMenu, openNav, setOpenNav, handleMenu }}>
+    <MenuContext.Provider
+      value={{ menu, setMenu, openNav, setOpenNav, handleMenu }}
+    >
       {children}
     </MenuContext.Provider>
   );
 };
 
+export const CardDetails = ({ children }) => {
+  const [cardArray, setCardArray] = useState(cardAll);
+  const [feeArray, setFeeArray] = useState(fee);
+  const [edit, setEdit] = useState({});
+
+  const editCard = (id) => {
+    const getId = cardArray.find((each) => each.id === id);
+    console.log(getId)
+    return setEdit(getId);
+  };
+ 
+  const deleteCard = (id) => {
+    const getId = cardArray.find((each) => each.id === id);
+    const update = cardArray.filter(each => each.id !== getId.id)
+    setCardArray(update)
+  };
+
+  return (
+    <CardData.Provider
+      value={{
+        cardArray,
+        setCardArray,
+        feeArray,
+        setFeeArray,
+        edit,
+        editCard,
+        deleteCard,
+        setEdit
+      }}
+    >
+      {children}
+    </CardData.Provider>
+  );
+};
+
 MyMenu.propTypes = {
+  children: PropTypes.array,
+};
+
+CardDetails.propTypes = {
   children: PropTypes.array,
 };

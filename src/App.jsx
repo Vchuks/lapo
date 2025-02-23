@@ -1,12 +1,14 @@
 import "./App.css";
 import Layout from "./components/Layout";
-import { MyMenu } from "./context/MyContext";
+import { CardDetails, MyMenu } from "./context/MyContext";
 
 function App() {
   return (
     <>
       <MyMenu>
-        <Layout />
+        <CardDetails>
+          <Layout />
+        </CardDetails>
       </MyMenu>
     </>
   );

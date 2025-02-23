@@ -6,7 +6,7 @@ import Top from "../components/Top";
 
 const Dashboard = () => {
   return (
-    <div className="border border-[#DEDEDF] p-5">
+    <div className="border border-[#DEDEDF] p-3 md:p-5">
       <Top />
       <div className="flex flex-col lg:flex-row gap-2">
         <div className="w-full">

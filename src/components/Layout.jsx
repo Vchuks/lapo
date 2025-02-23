@@ -5,6 +5,7 @@ import CardProfile from "../pages/CardProfile";
 import CardRequest from "../pages/CardRequest";
 import Others from "../pages/Others";
 import Header from "./Header";
+import CreateProfile from "./CreateProfile";
 
 const Layout = () => {
   return (
@@ -17,6 +18,7 @@ const Layout = () => {
           <Route path="/" element={<Dashboard />} />
           <Route path="card-profile" element={<CardProfile />} />
           <Route path="card-request" element={<CardRequest />} />
+          <Route path="card-profile/create-profile" element={<CreateProfile />} />
           <Route path="*" element={<Others />} />
         </Routes>
       </div>
