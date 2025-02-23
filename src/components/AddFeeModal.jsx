@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { CardData } from "../context/CardContext";
 
 const AddFeeModal = ({close}) => {
-    const {setFeeArray} = useContext(CardData)
+    const {setFeeArray, feeArray} = useContext(CardData)
     const {
         handleSubmit,
         register,
@@ -15,8 +15,24 @@ const AddFeeModal = ({close}) => {
       } = useForm();
     
       const onSubmit = (data) => {
-        console.log(data)
-        setFeeArray((prev)=>[...prev, data])
+        const getDate = new Date();
+    const [year, month, day] = new Date()
+      .toISOString()
+      .substring(0, 10)
+      .split("-");
+    const dateFormatted = `${day}/${month}/${year}`;
+    const today = `${dateFormatted} ${getDate.getHours()}:${getDate.getMinutes()}:${getDate
+      .getSeconds()
+      .toString()
+      .padStart(2, "0")}`;
+    const newData = {
+      ...data,
+      id: `${feeArray.length * 2}`,
+      time: today,
+      
+    };
+        
+        setFeeArray((prev)=>[...prev, newData])
       };
     
   return (

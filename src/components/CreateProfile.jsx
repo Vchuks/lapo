@@ -227,8 +227,8 @@ const CreateProfile = () => {
                 <tbody className="bg-white">
                   {feeArray?.map((each) => (
                     <tr key={each.id} className="text-[#475467]">
-                      <td>{each.name}</td>
-                      <td>{each.value}</td>
+                      <td>{each.fee_name}</td>
+                      <td>{each.fee_value}</td>
                       <td>{each.frequency}</td>
                       <td>{each.currency}</td>
                       <td>{each.time}</td>
