@@ -4,11 +4,14 @@ import Input from "./Input";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { CardData } from "../context/CardContext";
 import AddFeeModal from "./AddFeeModal";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CreateProfile = () => {
+    const navigate = useNavigate()
   const { feeArray, setCardArray, cardArray, edit } = useContext(CardData);
   const [feeModal, setFeeModal] = useState(false);
-  const [success, setSuccess] = useState(false);
+  
   const {
     handleSubmit,
     register,
@@ -17,11 +20,8 @@ const CreateProfile = () => {
     defaultValues: {
       id: edit.id || null,
       card_name: edit.card_name || "",
-
-      expire: edit.expire || 0,
       bin: edit.bin || "",
       date: edit.date || "",
-
       description: edit.description || "",
     },
   });
@@ -46,29 +46,24 @@ const CreateProfile = () => {
     setCardArray((prev) => {
       return [...prev, newData];
     });
-    setSuccess(true);
-    setTimeout(() => {
-      setSuccess(false);
-    }, 1000);
+    Swal.fire({
+            text: "Profile Created!",
+            icon: "success"
+          }).then((result)=> result.isConfirmed && navigate('/card-profile'))
+   
   };
 
   const handleEdit = (data) => {
     const update = cardArray.map((each) => (each.id === edit.id ? data : each));
     setCardArray(update);
-    setSuccess(true);
-    setTimeout(() => {
-      setSuccess(false);
-    }, 1000);
+  Swal.fire({
+          text: "Edit Successful!",
+          icon: "success"
+        }).then((result)=> result.isConfirmed && navigate('/card-profile'))
   };
   return (
     <div className="py-3 px-3 md:px-5">
-      {success && (
-        <div className="absolute top-0 left-0 w-full bg-[#101828b3] h-screen z-40 ">
-          <p className="rounded-lg w-fit m-auto bg-white p-10 text-green-500 text-2xl text-center mt-20">
-            Successful!
-          </p>
-        </div>
-      )}
+      
       <h2 className="font-[satoshiBold] text-[#101828] text-lg">
         Create Profile
       </h2>
@@ -81,7 +76,7 @@ const CreateProfile = () => {
         </p>
         <form
           onSubmit={edit.id ? handleSubmit(handleEdit) : handleSubmit(onSubmit)}
-          className="grid grid-cols-1 md:grid-cols-2 gap-3"
+          className="w-full grid grid-cols-1 md:grid-cols-2 gap-3"
         >
           <Input
             name="card_name"
@@ -103,7 +98,7 @@ const CreateProfile = () => {
             required
             errors={errors.bin}
           />
-          <div className="pt-2">
+          <div className="pt-2 w-full">
             <label
               className="text-[#344054] text-sm font-[satoshiMedium]"
               htmlFor="scheme"
@@ -207,7 +202,9 @@ const CreateProfile = () => {
             <h2 className="font-[satoshiBold] text-[#101828] text-lg">Fees</h2>
             <button
               className="flex mt-5 w-full md:w-fit gap-2 items-center bg-[#014DAF] text-xs px-2 md:px-4 py-2 rounded text-white"
-              onClick={() => setFeeModal(true)}
+              onClick={(event) => {
+                event.preventDefault()
+                setFeeModal(true)}}
             >
               <PlusIcon className="plus" /> Add Fee
             </button>
@@ -243,7 +240,7 @@ const CreateProfile = () => {
           {!edit.id && (
             <button
               type="submit"
-              className=" mt-8 w-full md:w-72  bg-[#014DAF]  px-2 md:px-4 py-2 rounded text-white"
+              className=" mt-8 flex md:w-72  bg-[#014DAF]  px-2 md:px-4 py-2 rounded text-white"
             >
               Create Profile
             </button>

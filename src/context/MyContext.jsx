@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import PropTypes from "prop-types";
 import branch from "../assets/branch.png";
 import branchb from "../assets/branchb.png";
@@ -26,42 +26,11 @@ import acc from "../assets/acc.png";
 import accb from "../assets/accb.png";
 import { MenuContext } from "./MenuContext";
 import { CardData } from "./CardContext";
+import { useNavigate } from "react-router-dom";
 
 const sideMenu = [
   {
     id: "1",
-    title: "Branches",
-    icon: branch,
-    iconb: branchb,
-    link: "branches",
-    child: "",
-  },
-  {
-    id: "2",
-    title: "Roles",
-    icon: role,
-    iconb: roleb,
-    link: "roles",
-    child: "",
-  },
-  {
-    id: "3",
-    title: "Users",
-    icon: user,
-    iconb: userb,
-    link: "users",
-    child: "",
-  },
-  {
-    id: "4",
-    title: "Card Scheme",
-    icon: scheme,
-    iconb: schemeb,
-    link: "card-scheme",
-    child: "",
-  },
-  {
-    id: "5",
     title: "Card Profile",
     icon: prof,
     iconb: profb,
@@ -72,7 +41,7 @@ const sideMenu = [
     },
   },
   {
-    id: "6",
+    id: "2",
     title: "Card Request",
     icon: req,
     iconb: reqb,
@@ -82,6 +51,39 @@ const sideMenu = [
       path: "card-request/request-details",
     },
   },
+  {
+    id: "3",
+    title: "Branches",
+    icon: branch,
+    iconb: branchb,
+    link: "branches",
+    child: "",
+  },
+  {
+    id: "4",
+    title: "Roles",
+    icon: role,
+    iconb: roleb,
+    link: "roles",
+    child: "",
+  },
+  {
+    id: "5",
+    title: "Users",
+    icon: user,
+    iconb: userb,
+    link: "users",
+    child: "",
+  },
+  {
+    id: "6",
+    title: "Card Scheme",
+    icon: scheme,
+    iconb: schemeb,
+    link: "card-scheme",
+    child: "",
+  },
+  
   {
     id: "7",
     title: "Authorization List",
@@ -171,6 +173,68 @@ const fee = [
   },
 ];
 
+const requestTable = [
+  {
+    id: "1",
+    branch: "Corporate",
+    initiator: "RootUser",
+    quantity: "10",
+    batch: "847264905",
+    date: "11/10/2024  23:21:03",
+    status: "Ready",
+    type:"Classic Debit",
+    charges:"1500", slug:"Ready"
+  },
+  {
+    id: "2",
+    branch: "Corporate",
+    initiator: "RootUser",
+    quantity: "10",
+    batch: "847264905",
+    date: "11/10/2024  23:21:03",
+    status: "Ready",
+    type:"Classic Debit",
+    charges:"1500",
+     slug:"Ready"
+  },
+  {
+    id: "3",
+    branch: "Corporate",
+    initiator: "RootUser",
+    quantity: "10",
+    batch: "847264905",
+    date: "11/10/2024  23:21:03",
+    status: "In Progress",
+    type:"Classic Debit",
+    charges:"1500",
+     slug:"Progress"
+  },
+  {
+    id: "4",
+    branch: "Corporate",
+    initiator: "RootUser",
+    quantity: "10",
+    batch: "847264905",
+    date: "11/10/2024  23:21:03",
+    status: "Pending",
+    type:"Classic Debit",
+    charges:"1500",
+     slug:"Pending"
+  },
+  {
+    id: "5",
+    branch: "Corporate",
+    initiator: "RootUser",
+    quantity: "10",
+    batch: "847264905",
+    date: "11/10/2024  23:21:03",
+    status: `Acknowledged`,
+    type:"Classic Debit",
+    charges:"1500",
+     slug:"Acknowledged"
+  },
+];
+
 export const MyMenu = ({ children }) => {
   const [menu, setMenu] = useState(sideMenu);
   const [openNav, setOpenNav] = useState(false);
@@ -188,19 +252,55 @@ export const MyMenu = ({ children }) => {
 
 export const CardDetails = ({ children }) => {
   const [cardArray, setCardArray] = useState(cardAll);
+  const [requestArray, setRequestArray] = useState(requestTable);
   const [feeArray, setFeeArray] = useState(fee);
   const [edit, setEdit] = useState({});
+  const [view, setView] = useState({});
+  const navigate = useNavigate();
+
+   const initialState = {
+      isActive: false,
+    }
+    const reducer = (state,action) => {
+      switch(action.type){
+          case "Ready":
+          return {isActive: true};
+          case"Download":
+          return{isActive: false};
+          case"Acknowledged":
+          return{isActive: false};
+          case"Pending":
+          return{isActive: false};
+          case"Progress":
+          return{isActive: false};
+          default:
+            throw Error('Unknown action.');
+      }
+    }
+    
+    const [state, dispatch] = useReducer(reducer, initialState)
+    const handleDispatch = (slug, id) =>{
+      console.log('state',state) 
+      console.log('id',id) 
+      
+        dispatch({type: "Ready"})
+    }
 
   const editCard = (id) => {
     const getId = cardArray.find((each) => each.id === id);
-    console.log(getId)
     return setEdit(getId);
   };
- 
+
   const deleteCard = (id) => {
     const getId = cardArray.find((each) => each.id === id);
-    const update = cardArray.filter(each => each.id !== getId.id)
-    setCardArray(update)
+    const update = cardArray.filter((each) => each.id !== getId.id);
+    setCardArray(update);
+  };
+
+  const handleView = (id) => {
+    const getView = requestArray.find((each) => each.id === id);
+    setView(getView);
+    navigate("card-request/request-details");
   };
 
   return (
@@ -213,7 +313,13 @@ export const CardDetails = ({ children }) => {
         edit,
         editCard,
         deleteCard,
-        setEdit
+        setEdit,
+        requestArray,
+        setRequestArray,
+        view,
+        handleView,
+        state,
+        handleDispatch
       }}
     >
       {children}

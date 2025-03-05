@@ -1,8 +1,9 @@
+import CardRequestTable from "../components/CardRequestTable"
 
 const CardRequest = () => {
   return (
     <div>
-      <p>Req</p>
+      <CardRequestTable/>
     </div>
   )
 }

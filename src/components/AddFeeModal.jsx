@@ -5,17 +5,18 @@ import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { CardData } from "../context/CardContext";
+import Swal from "sweetalert2";
 
-const AddFeeModal = ({close}) => {
-    const {setFeeArray, feeArray} = useContext(CardData)
-    const {
-        handleSubmit,
-        register,
-        formState: {errors}
-      } = useForm();
-    
-      const onSubmit = (data) => {
-        const getDate = new Date();
+const AddFeeModal = ({ close }) => {
+  const { setFeeArray, feeArray } = useContext(CardData);
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    const getDate = new Date();
     const [year, month, day] = new Date()
       .toISOString()
       .substring(0, 10)
@@ -29,12 +30,16 @@ const AddFeeModal = ({close}) => {
       ...data,
       id: `${feeArray.length * 2}`,
       time: today,
-      
     };
-        
-        setFeeArray((prev)=>[...prev, newData])
-      };
-    
+
+    setFeeArray((prev) => [...prev, newData]);
+    Swal.fire({
+        text: "Successful!",
+        icon: "success"
+      }).then((result)=> result.isConfirmed && close())
+      
+  };
+
   return (
     <div className="w-full z-30 bg-[#101828b3] flex items-center h-screen absolute top-0 left-0 overflow-y-auto">
       <div className="bg-white w-[90%] md:w-[60%] lg:w-[40%] m-auto mt-15 px-5 py-6 rounded-xl">
@@ -113,7 +118,6 @@ const AddFeeModal = ({close}) => {
               <div className="flex gap-1">
                 <label className="container">
                   <input
-                    
                     {...register("frequency")}
                     type="radio"
                     value="oneoff"
@@ -125,8 +129,6 @@ const AddFeeModal = ({close}) => {
               <div className="flex gap-1">
                 <label className="container">
                   <input
-                
-                    
                     {...register("frequency")}
                     type="radio"
                     value="monthly"
@@ -145,7 +147,6 @@ const AddFeeModal = ({close}) => {
               <div className="flex gap-1">
                 <label className="container">
                   <input
-                   
                     {...register("fee_impact")}
                     type="radio"
                     value="issuance"
@@ -157,7 +158,6 @@ const AddFeeModal = ({close}) => {
               <div className="flex gap-1">
                 <label className="container">
                   <input
-                    
                     {...register("fee_impact")}
                     type="radio"
                     value="pin_reissue"
@@ -176,7 +176,6 @@ const AddFeeModal = ({close}) => {
               <div className="flex gap-1">
                 <label className="container">
                   <input
-                    
                     {...register("account_paid")}
                     type="radio"
                     value="none"
@@ -188,7 +187,6 @@ const AddFeeModal = ({close}) => {
               <div className="flex gap-1">
                 <label className="container">
                   <input
-                   
                     {...register("account_paid")}
                     type="radio"
                     value="code-prefix"
@@ -200,7 +198,6 @@ const AddFeeModal = ({close}) => {
               <div className="flex gap-1">
                 <label className="container">
                   <input
-                   
                     {...register("account_paid")}
                     type="radio"
                     value="code-suffix"
@@ -220,9 +217,12 @@ const AddFeeModal = ({close}) => {
             type="type"
             show={false}
           />
-          <button type="submit" className=" mt-14 w-full   bg-[#014DAF]  px-2 md:px-4 py-2 rounded text-white">
-           Add Fee
-        </button>
+          <button
+            type="submit"
+            className=" mt-14 w-full   bg-[#014DAF]  px-2 md:px-4 py-2 rounded text-white"
+          >
+            Add Fee
+          </button>
         </form>
       </div>
     </div>
@@ -230,6 +230,6 @@ const AddFeeModal = ({close}) => {
 };
 
 AddFeeModal.propTypes = {
-    close: PropTypes.func
-}
+  close: PropTypes.func,
+};
 export default AddFeeModal;

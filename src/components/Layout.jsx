@@ -6,6 +6,7 @@ import CardRequest from "../pages/CardRequest";
 import Others from "../pages/Others";
 import Header from "./Header";
 import CreateProfile from "./CreateProfile";
+import ActionsPage from "./ActionsPage";
 
 const Layout = () => {
   return (
@@ -19,6 +20,7 @@ const Layout = () => {
           <Route path="card-profile" element={<CardProfile />} />
           <Route path="card-request" element={<CardRequest />} />
           <Route path="card-profile/create-profile" element={<CreateProfile />} />
+          <Route path="card-request/request-details" element={<ActionsPage/>}/>
           <Route path="*" element={<Others />} />
         </Routes>
       </div>
