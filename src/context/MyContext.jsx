@@ -67,6 +67,7 @@ const sideMenu = [
     link: "roles",
     child: "",
   },
+  
   {
     id: "5",
     title: "Users",
@@ -83,7 +84,7 @@ const sideMenu = [
     link: "card-scheme",
     child: "",
   },
-  
+ 
   {
     id: "7",
     title: "Authorization List",
@@ -282,7 +283,9 @@ export const CardDetails = ({ children }) => {
     const handleDispatch = (slug, id) =>{
       console.log('state',state) 
       console.log('id',id) 
-      
+      // if(id){
+
+      // }
         dispatch({type: "Ready"})
     }
 
