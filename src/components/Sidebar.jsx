@@ -45,7 +45,7 @@ const Sidebar = () => {
             </div>
             <p>Dashboard</p>
           </NavLink>
-          <p className="font-[satoshiMedium] text-xs px-[16px] py-[10px]">
+          <p className="font-[satoshiMedium] text-[8.5px] px-[16px] py-[10px] text-[#7E8B9C]">
             MAIN MENU
           </p>
           {menu?.map((eachMenu) => (

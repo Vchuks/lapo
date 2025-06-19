@@ -10,10 +10,10 @@ import ActionsPage from "./ActionsPage";
 
 const Layout = () => {
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col lg:flex-row h-screen">
       <Sidebar />
 
-      <div className="w-full bg-[#F1F7FF] overflow-y-scroll">
+      <div className="w-full bg-[#F1F7FF] overflow-x-hidden overflow-y-scroll">
         <Header/>
         <Routes>
           <Route path="/" element={<Dashboard />} />

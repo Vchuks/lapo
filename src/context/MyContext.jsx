@@ -31,6 +31,38 @@ import { useNavigate } from "react-router-dom";
 const sideMenu = [
   {
     id: "1",
+    title: "Branches",
+    icon: branch,
+    iconb: branchb,
+    link: "branches",
+    child: "",
+  },
+  {
+    id: "2",
+    title: "Roles",
+    icon: role,
+    iconb: roleb,
+    link: "roles",
+    child: "",
+  },
+  {
+    id: "3",
+    title: "Users",
+    icon: user,
+    iconb: userb,
+    link: "users",
+    child: "",
+  },
+  {
+    id: "4",
+    title: "Card Scheme",
+    icon: scheme,
+    iconb: schemeb,
+    link: "card-scheme",
+    child: "",
+  },
+  {
+    id: "5",
     title: "Card Profile",
     icon: prof,
     iconb: profb,
@@ -41,7 +73,7 @@ const sideMenu = [
     },
   },
   {
-    id: "2",
+    id: "6",
     title: "Card Request",
     icon: req,
     iconb: reqb,
@@ -51,40 +83,6 @@ const sideMenu = [
       path: "card-request/request-details",
     },
   },
-  {
-    id: "3",
-    title: "Branches",
-    icon: branch,
-    iconb: branchb,
-    link: "branches",
-    child: "",
-  },
-  {
-    id: "4",
-    title: "Roles",
-    icon: role,
-    iconb: roleb,
-    link: "roles",
-    child: "",
-  },
-  
-  {
-    id: "5",
-    title: "Users",
-    icon: user,
-    iconb: userb,
-    link: "users",
-    child: "",
-  },
-  {
-    id: "6",
-    title: "Card Scheme",
-    icon: scheme,
-    iconb: schemeb,
-    link: "card-scheme",
-    child: "",
-  },
- 
   {
     id: "7",
     title: "Authorization List",
