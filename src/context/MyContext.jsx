@@ -31,19 +31,25 @@ import { useNavigate } from "react-router-dom";
 const sideMenu = [
   {
     id: "1",
-    title: "Branches",
-    icon: branch,
-    iconb: branchb,
-    link: "branches",
-    child: "",
+    title: "Card Profile",
+    icon: prof,
+    iconb: profb,
+    link: "card-profile",
+    child: {
+      title: "Create Profile",
+      path: "card-profile/create-profile",
+    },
   },
   {
     id: "2",
-    title: "Roles",
-    icon: role,
-    iconb: roleb,
-    link: "roles",
-    child: "",
+    title: "Card Request",
+    icon: req,
+    iconb: reqb,
+    link: "card-request",
+    child: {
+      title: "Request Details",
+      path: "card-request/request-details",
+    },
   },
   {
     id: "3",
@@ -63,25 +69,19 @@ const sideMenu = [
   },
   {
     id: "5",
-    title: "Card Profile",
-    icon: prof,
-    iconb: profb,
-    link: "card-profile",
-    child: {
-      title: "Create Profile",
-      path: "card-profile/create-profile",
-    },
+    title: "Branches",
+    icon: branch,
+    iconb: branchb,
+    link: "branches",
+    child: "",
   },
   {
     id: "6",
-    title: "Card Request",
-    icon: req,
-    iconb: reqb,
-    link: "card-request",
-    child: {
-      title: "Request Details",
-      path: "card-request/request-details",
-    },
+    title: "Roles",
+    icon: role,
+    iconb: roleb,
+    link: "roles",
+    child: "",
   },
   {
     id: "7",
@@ -181,8 +181,9 @@ const requestTable = [
     batch: "847264905",
     date: "11/10/2024  23:21:03",
     status: "Ready",
-    type:"Classic Debit",
-    charges:"1500", slug:"Ready"
+    type: "Classic Debit",
+    charges: "1500",
+    slug: "Ready",
   },
   {
     id: "2",
@@ -192,9 +193,9 @@ const requestTable = [
     batch: "847264905",
     date: "11/10/2024  23:21:03",
     status: "Ready",
-    type:"Classic Debit",
-    charges:"1500",
-     slug:"Ready"
+    type: "Classic Debit",
+    charges: "1500",
+    slug: "Ready",
   },
   {
     id: "3",
@@ -204,9 +205,9 @@ const requestTable = [
     batch: "847264905",
     date: "11/10/2024  23:21:03",
     status: "In Progress",
-    type:"Classic Debit",
-    charges:"1500",
-     slug:"Progress"
+    type: "Classic Debit",
+    charges: "1500",
+    slug: "Progress",
   },
   {
     id: "4",
@@ -216,9 +217,9 @@ const requestTable = [
     batch: "847264905",
     date: "11/10/2024  23:21:03",
     status: "Pending",
-    type:"Classic Debit",
-    charges:"1500",
-     slug:"Pending"
+    type: "Classic Debit",
+    charges: "1500",
+    slug: "Pending",
   },
   {
     id: "5",
@@ -228,9 +229,9 @@ const requestTable = [
     batch: "847264905",
     date: "11/10/2024  23:21:03",
     status: `Acknowledged`,
-    type:"Classic Debit",
-    charges:"1500",
-     slug:"Acknowledged"
+    type: "Classic Debit",
+    charges: "1500",
+    slug: "Acknowledged",
   },
 ];
 
@@ -257,35 +258,35 @@ export const CardDetails = ({ children }) => {
   const [view, setView] = useState({});
   const navigate = useNavigate();
 
-   const initialState = {
-      isActive: false,
+  const initialState = {
+    isActive: false,
+  };
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "Ready":
+        return { isActive: true };
+      case "Download":
+        return { isActive: false };
+      case "Acknowledged":
+        return { isActive: false };
+      case "Pending":
+        return { isActive: false };
+      case "Progress":
+        return { isActive: false };
+      default:
+        throw Error("Unknown action.");
     }
-    const reducer = (state,action) => {
-      switch(action.type){
-          case "Ready":
-          return {isActive: true};
-          case"Download":
-          return{isActive: false};
-          case"Acknowledged":
-          return{isActive: false};
-          case"Pending":
-          return{isActive: false};
-          case"Progress":
-          return{isActive: false};
-          default:
-            throw Error('Unknown action.');
-      }
-    }
-    
-    const [state, dispatch] = useReducer(reducer, initialState)
-    const handleDispatch = (slug, id) =>{
-      console.log('state',state) 
-      console.log('id',id) 
-      // if(id){
+  };
 
-      // }
-        dispatch({type: "Ready"})
-    }
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const handleDispatch = (slug, id) => {
+    console.log("state", state);
+    console.log("id", id);
+    // if(id){
+
+    // }
+    dispatch({ type: "Ready" });
+  };
 
   const editCard = (id) => {
     const getId = cardArray.find((each) => each.id === id);
@@ -320,7 +321,7 @@ export const CardDetails = ({ children }) => {
         view,
         handleView,
         state,
-        handleDispatch
+        handleDispatch,
       }}
     >
       {children}
